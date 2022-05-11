@@ -1,7 +1,7 @@
 $.widget("todo.todoList", {
   _create: function () {
     $.ajax({
-      url: "/DoerrJol/5_WebService/todos",
+      url: "/Projektarbeit/Web_Service/todos",
       dataType: "json",
       success: this._appendTodos,
       context: this
@@ -34,7 +34,7 @@ $.widget("todo.todoList", {
   reload: function(){
     this.element.find(".todo:not(.template)").remove();
     $.ajax({
-      url: "/DoerrJol/5_WebService/todos",
+      url: "/Projektarbeit/Web_Service/todos",
       dataType: "json",
       success: this._appendTodos,
       context: this

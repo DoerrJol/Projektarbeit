@@ -2,7 +2,7 @@ var app = new Vue({
     el: '#app',
     vuetify: new Vuetify(),
     data: {
-        todosUrl: "/DoerrJol/5_WebService/todos",
+        todosUrl: "/Projektarbeit/Web_Service/todos",
         errorOccured: false,
         errorMessage: "",
         todoListHeaders: [
