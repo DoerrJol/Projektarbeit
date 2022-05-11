@@ -8,7 +8,7 @@ $app = \Slim\Factory\AppFactory::create();
 //$app->add(new DenyCachingMiddleware());
 $app->addRoutingMiddleware();
 $app->getRouteCollector()->setDefaultInvocationStrategy(new \Slim\Handlers\Strategies\RequestResponseArgs());
-$app->setBasePath("/DoerrJol/5_WebService");
+$app->setBasePath("/Projektarbeit/Web_Service");
 $app->addErrorMiddleware(true, true, true);
 
 $app->get(
@@ -42,7 +42,7 @@ $app->get(
     }
 
     foreach($todos as $todo){
-      $todo->url = "/DoerrJol/5_WebService/todos/$todo->id";
+      $todo->url = "/Projektarbeit/Web_Service/todos/$todo->id";
       unset($todo->id);
     }
 
@@ -69,7 +69,7 @@ $app->post(
     }
 
     $response = $response->withStatus(201);
-    $response = $response->withHeader("Location", "DoerrJol/5_WebService/todos/$result->id");
+    $response = $response->withHeader("Location", "Projektarbeit/Web_Service/todos/$result->id");
     return $response;
   }
 );
