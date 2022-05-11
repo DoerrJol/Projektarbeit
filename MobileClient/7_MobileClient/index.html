@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Todo-Liste</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@mdi/font@6.x/css/materialdesignicons.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+</head>
+
+<body>
+    <div id="app">
+        <v-app>
+            <v-main>
+                <v-toolbar>
+                    <v-toolbar-title>Todo-Liste</v-toolbar-title>
+                    <v-spacer></v-spacer>
+                    <v-btn v-if="selectedTodo != null" @click="selectedTodo=null">Zurück</v-btn>
+                </v-toolbar>
+                <v-dialog v-model="errorOccured" persistent max-width="290">
+                    <v-card>
+                        <v-card-title>Fehlermeldung</v-card-title>
+                        <v-card-text>{{errorMessage}}</v-card-text>
+                        <v-card-actions>
+                            <v-spacer></v-spacer>
+                            <v-btn @click="errorOccured = false">Ok</v-btn>
+                            <v-spacer></v-spacer>
+                        </v-card-actions>
+                    </v-card>
+                </v-dialog>
+
+                <v-data-table v-if="selectedTodo==null" @click:row="onTodoSelected" :headers="todoListHeaders"
+                    :items="todos" hide-default-footer no-data-text="Keine Todos vorhanden"></v-data-table>
+
+                <v-form @submit.prevent="onUpdateTodoClicked" v-if="selectedTodo != null" v-model="selectedTodoValid">
+                    <v-container>
+                        <v-row>
+                            <v-col>
+                                <v-text-field v-model="selectedTodo.title" v-model="selectedTodo.titel" label="Title" :rules="titleValidationRules"></v-text-field>
+                                <v-text-field type="date" :rules="dueDateValidationRules" v-model="selectedTodo.due_date" label="Fällig"></v-text-field>
+                                <v-text-field readonly v-model="selectedTodo.author" label="Ersteller"></v-text-field>
+                            </v-col>
+                        </v-row>
+                        <v-row>
+                            <v-col>
+                                <v-textarea label="Notizen" v-model="selectedTodo.notes"></v-textarea>
+                            </v-col>
+                        </v-row>
+                        <v-row>
+                            <v-col class="text-right">
+                                <v-btn type="submit" :disabled="!selectedTodoValid">Speichern</v-btn>
+                                <v-btn @click.stop="confirmDeleteDialog = true">Löschen</v-btn>
+                                <v-dialog v-model="confirmDeleteDialog" max-width="290">
+                                    <v-card>
+                                        <v-card-title>Löschen</v-card-title>
+                                        <v-card-text>Soll das Todo gelöscht werden?</v-card-text>
+                                        <v-card-actions>
+                                            <v-spacer></v-spacer>
+                                            <v-btn @click="confirmDeleteDialog = false">Abbrechen</v-btn>
+                                            <v-btn @click="onDeleteTodoClicked">Bestätigen</v-btn>
+                                        </v-card-actions>
+                                    </v-card>
+                                </v-dialog>
+                            </v-col>
+                        </v-row>
+                    </v-container>
+                </v-form>
+            </v-main>
+        </v-app>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+    <script src="./javascript/application.js"></script>
+</body>
+
+</html>

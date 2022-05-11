@@ -1,0 +1,4 @@
+"SELECT id, created_date, due_date, ".
+"due_date <= CURDATE() as due, author, title, notes ".
+"FROM todo ".
+"WHERE id = $id";
