@@ -1,5 +1,0 @@
-"UPDATE todo SET ".
-"title = '$todo->title', ".
-"due_date = '$todo->due_date', ".
-"notes = '$todo->notes' ".
-"WHERE id = $todo->id"
