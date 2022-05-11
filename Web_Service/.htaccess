@@ -9,7 +9,7 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^ RequestHandler.php [QSA,L]
 
-AuthType Basic
-AuthName "Todo-Liste"
-AuthUserFile "C:\xampp\htdocs\DoerrJol\5_WebService\.htusers"
-Require valid-user
+#AuthType Basic
+#AuthName "Todo-Liste"
+#AuthUserFile "C:\xampp\htdocs\Projektarbeit\Web_Service\.htusers"
+#Require valid-user
