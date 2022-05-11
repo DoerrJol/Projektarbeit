@@ -1,0 +1,15 @@
+# PHP Fehler nicht in der HTTP-Antwort ausgeben
+php_value display_errors 0
+
+# PHP Fehler im Windows Ereignisprotokoll ausgegen
+php_value error_log syslog
+
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ RequestHandler.php [QSA,L]
+
+AuthType Basic
+AuthName "Todo-Liste"
+AuthUserFile "C:\xampp\htdocs\DoerrJol\5_WebService\.htusers"
+Require valid-user

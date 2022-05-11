@@ -1,0 +1,5 @@
+"INSERT INTO todo SET ".
+"created_date = CURDATE(), ".
+"due_date = '$todo->due_date', ".
+"title = '$todo->title', ".
+"notes = '$todo->notes'";

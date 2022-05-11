@@ -1,0 +1,8 @@
+.template, #todo_details {
+    display: none;
+}
+
+
+.todo{
+    cursor: pointer;
+}
