@@ -12,10 +12,10 @@ class TodoService
 
   public function readTodo($id)
   {
-    $connection = new PDO("mysql:host=localhost;dbname=todolist;charset=UTF8", "root", "");
-    $selectstatement =  "SELECT id, due_date <= CURDATE() as due, created_date, due_date, author, title, notes, version " .
-      "FROM todo " .
-      "WHERE id = $id";
+    $connection = new PDO("mysql:host=localhost;dbname=einkaufsliste;charset=UTF8", "root", "");
+    $selectstatement =  "SELECT liste_id, angelegt_am <= CURDATE() as created, name " .
+      "FROM liste " .
+      "WHERE liste_id = $id";
     $result_set = $connection->query($selectstatement);
     if ($result_set->rowCount() === 0) {
       $connection = NULL;
@@ -29,10 +29,10 @@ class TodoService
   public function readTodos()
   {
     try {
-      $connection = new PDO("mysql:host=localhost;dbname=todolist;charset=UTF8", "root", "");
-      $selectstatement =      "SELECT id, due_date <= CURDATE() as due, due_date, author, title, version " .
-        "FROM todo " .
-        "ORDER BY due_date";
+      $connection = new PDO("mysql:host=localhost;dbname=einkaufsliste;charset=UTF8", "root", "");
+      $selectstatement =      "SELECT liste_id, angelegt_am <= CURDATE() as created, name " .
+        "FROM liste " .
+        "ORDER BY name";
       $result_set = $connection->query($selectstatement);
       $todos = $result_set->fetchAll(PDO::FETCH_CLASS, "Todo");
       $connection = null;
@@ -53,7 +53,7 @@ class TodoService
       return $result;
     }
 
-    $connection = new PDO("mysql:host=localhost;dbname=todolist;charset=UTF8", "root", "");
+    $connection = new PDO("mysql:host=localhost;dbname=einkaufsliste;charset=UTF8", "root", "");
     $insertstatement =    "INSERT INTO todo SET " .
                           "created_date = CURDATE(), " .
                           "due_date = '$todo->due_date', " .
@@ -70,14 +70,14 @@ class TodoService
   }
 
   public function deleteTodo($id){
-    $connection = new PDO("mysql:host=localhost;dbname=todolist;charset=UTF8", "root", "");
+    $connection = new PDO("mysql:host=localhost;dbname=einkaufsliste;charset=UTF8", "root", "");
     $deleteStatement = "DELETE FROM todo WHERE id = $id";
     $connection->query($deleteStatement);
     $connection= null;
   }
 
   public function updateTodo($todo){
-    $connection = new PDO("mysql:host=localhost;dbname=todolist;charset=UTF8", "root", "");
+    $connection = new PDO("mysql:host=localhost;dbname=einkaufsliste;charset=UTF8", "root", "");
     $updateStatement = "UPDATE todo SET ".
     "title = '$todo->title', ". 
     "due_date = '$todo->due_date', ".
