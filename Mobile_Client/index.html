@@ -31,7 +31,7 @@
                     </v-card>
                 </v-dialog>
 
-                <v-data-table v-if="selectedTodo==null" @click:row="onTodoSelected" :headers="todoListHeaders"
+                <v-data-table v-if="selectedTodo==null" @click:row="onTodoSelected" :headers="EKListHeaders"
                     :items="todos" hide-default-footer no-data-text="Keine Todos vorhanden"></v-data-table>
 
                 <v-form @submit.prevent="onUpdateTodoClicked" v-if="selectedTodo != null" v-model="selectedTodoValid">

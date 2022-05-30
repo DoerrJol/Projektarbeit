@@ -1,59 +1,62 @@
 $(function() {
-    $(document).ajaxError(function(event, response) {
-        //alert(response.statusText);
-        if (response.status == 400)
-            return;
+    $(document).ajaxError(function(event, response){
+        if (response.status == 400) {
+             return; 
+        }
 
         $("#error_dialog").errorDialog("open", response.statusText);
-        $("#todo_details").hide();
-        $("#todo_list").show();
-
-        if(response.status == 404){
-            $("#todo_list").todoList("reload"); 
+        $("#ek_liste").show();
+        $("#ekl_details").hide();
+        if (response.status == 404){
+        $("#ek_liste").EKList("reload");
         }
-        
     });
 
-    $(document).ajaxStart(function() {
-        $.blockUI({message: null});
-    });
+    $(document).ajaxStart(function(){
+        $.blockUI({message: null})
+    })
 
-    $(document).ajaxStop(function() {
+    $(document).ajaxStop(function(){
         $.unblockUI();
-    });
+    })
+
 
     $("#error_dialog").errorDialog();
-    $("#todo_list").todoList({
-        onTodoClicked: function(event, todoUrl) {
-            $("#todo_list").hide();
-            $("#todo_details").show();
-            $("#todo_details").todoDetails("load", todoUrl);
+    $("#ek_liste").EKList({
+        onEKLClicked: function(event, eklisteUrl) {
+            $("#ek_liste").hide();
+            $("#ekl_details").show();
+            $("#ekl_details").todoDetails("load", eklisteUrl);
         },
 
-        onDeleteTodoClicked: function(event, todoUrl){
+        onDeleteTodoClicked: function(event, todoUrl) {
             $("#delete_dialog").deleteDialog("open", todoUrl);
+        
         },
-
-        onEditTodoClicked: function(event, todo){
-            $("#edit_dialog").editDialog("open", todo);        
+        onEditTodoClicked: function(event, todo) {
+            $("#edit_dialog").editDialog("open", todo);
+        
         }
     });
-    $("#todo_details").todoDetails();
+    $("#ekl_details").todoDetails();
     $("#delete_dialog").deleteDialog({
-        onTodoDeleted: function(){
-            $("#todo_list").todoList("reload"); 
-        }       
+        onTodoDeleted: function() {
+            $("#ek_liste").EKList("reload");
+        }
     });
+
     $("#edit_dialog").editDialog({
-        onTodoEdited: function(){
-            $("#todo_list").todoList("reload"); 
+        onTodoEdited: function() {
+            $("#ek_liste").EKList("reload");
         }
     });
+
     $("#menu_bar").menuBar({
-        onShowTodosClicked: function(){
-            $("#todo_list").show();
-            $("#todo_details").hide();
-            $("#todo_list").todoList("reload");
+        onShowTodosClicked: function() {
+            $("#ek_liste").show();
+            $("#ekl_details").hide();
+            $("#ek_liste").EKList("reload");
         }
     });
+
 });

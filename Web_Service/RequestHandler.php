@@ -2,7 +2,7 @@
 require "vendor/autoload.php";
 //require "IgnoreCaseMiddleware.php";
 require "DenyCachingMiddleware.php";
-require "TodoService.php";
+require "ListService.php";
 
 $app = \Slim\Factory\AppFactory::create();
 //$app->add(new DenyCachingMiddleware());
@@ -11,58 +11,57 @@ $app->getRouteCollector()->setDefaultInvocationStrategy(new \Slim\Handlers\Strat
 $app->setBasePath("/Projektarbeit/Web_Service");
 $app->addErrorMiddleware(true, true, true);
 
-$app->get(
-  "/todos/{id}",
-  function ($request, $response, $id){
-    $todoService = new TodoService();
-    $todo = $todoService->readTodo($id);
-
-    if($todo=== TodoService::NOT_FOUND){
-      $response = $response->withStatus(404);
-      return $response;
-    }
-    
-    unset($todo->id);
-    $response = $response->withHEader("Etag", $todo->version);
-    unset($todo->version);
-    $response->getBody()->write(json_encode($todo));
-    return $response;
-  }
-);
 
 $app->get(
-  "/todos",
+  "/listen",
   function ($request, $response) {
-    $todoService = new TodoService();
-    $todos = $todoService->readTodos();
+    $listService = new ListService();
+    $eklists = $listService->readLists();
 
-    if($todos === TodoService::DATABASE_ERROR){
+    if($eklists === ListService::DATABASE_ERROR){
       $response = $response->withStatus(500);
       return $response;
     }
 
-    foreach($todos as $todo){
-      $todo->url = "/Projektarbeit/Web_Service/todos/$todo->id";
-      unset($todo->id);
+    foreach($eklists as $list){
+      $list->url = "/Projektarbeit/Web_Service/listen/$list->id";
+      unset($list->id);
     }
 
-    $response->getBody()->write(json_encode($todos));
+    $response->getBody()->write(json_encode($eklists));
     return $response;
   });
 
+$app->get(
+  "/listen/{id}",
+  function ($request, $response, $id){
+    $listService = new ListService();
+    $eklist = $listService->readList($id);
+
+    if($eklist=== ListService::NOT_FOUND){
+      $response = $response->withStatus(404);
+      return $response;
+    }
+    
+    unset($eklist->id);
+//    $response = $response->withHEader("Etag", $eklist->version);
+    unset($eklist->version);
+    $response->getBody()->write(json_encode($eklist));
+    return $response;
+  }
+);
+
 $app->post(
-  "/todos",
+  "/listen",
   function ($request, $response){
     $body = $request->getParsedBody();
-    $todo = new Todo();
-    $todo->title = $body["title"];
-    $todo->due_date = $body["due_date"];
-    $todo->notes = $body["notes"];
+    $einkaufsliste = new Einkaufsliste();
+    $einkaufsliste->title = $body["titel"];
 
-    $todoService = new TodoService();
-    $result = $todoService->createTodo($todo);
+    $listService = new ListService();
+    $result = $listService->createTodo($einkaufsliste);
 
-    if($result->status_code === TodoService::INVALID_INPUT){
+    if($result->status_code === ListService::INVALID_INPUT){
       $response = $response->withStatus(400);
       $response->getBody()->write(json_encode($result->validationMessages));
       return $response;
@@ -77,7 +76,7 @@ $app->post(
 $app->delete(
   "/todos/{id}",
   function ($request, $response, $id){
-    $todoService=new TodoService();
+    $todoService=new ListService();
     $todoService->deleteTodo($id)  ;
     return $response;
   }
@@ -87,7 +86,7 @@ $app->put(
   "/todos/{id}",
   function ($request, $response, $id){
     $body = $request->getParsedBody();
-    $todo = new Todo();
+    $todo = new Einkaufsliste();
     $todo->id = $id;
     $todo->title = $body["title"];
     $todo->due_date = $body["due_date"];
@@ -101,13 +100,13 @@ $app->put(
       return $response->withJson($validation_messages);
     }
 
-    $todoService=new TodoService();
+    $todoService=new ListService();
     $result = $todoService->updateTodo($todo)  ;
-    if ($result === TodoService::VERSION_OUTDATED){
+    if ($result === ListService::VERSION_OUTDATED){
       $response = $response->withStatus(412);
       return $response;
     }
-    if ($result === TodoService::NOT_FOUND){
+    if ($result === ListService::NOT_FOUND){
       $response = $response->withStatus(404);
       return $response;
     }

@@ -5,7 +5,7 @@ var app = new Vue({
         todosUrl: "/Projektarbeit/Web_Service/todos",
         errorOccured: false,
         errorMessage: "",
-        todoListHeaders: [
+        EKListHeaders: [
             {
                 text: 'Titel',
                 value: 'title',

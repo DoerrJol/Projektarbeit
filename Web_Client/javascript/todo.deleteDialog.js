@@ -4,39 +4,39 @@ $.widget("todo.deleteDialog", $.ui.dialog, {
         modal: true,
         buttons: [
             {
-                text: "Löschen"
+                text:"Abbrechen"
             },
             {
-                text: "Abbrechen"
+                text:"OK"
             }
+        ],
 
-        ]
     },
 
-    open: function(todoUrl) {
-        this._super();
-        this._todoUrl = todoUrl;
-    },
-
-    _create: function(){
+    _create: function() {
         var that = this;
-        var cancel = this.options.buttons[1];
+        var cancel = this.options.buttons[0];
         cancel.click = function(){
             that.close();
         }
 
-        var ok= this.options.buttons[0];
+        var ok = this.options.buttons[1];
         ok.click = function(){
             that.close();
             $.ajax({
                 url: that._todoUrl,
                 type: "DELETE",
-                success: function(){
+                success: function() {
                     that._trigger("onTodoDeleted");
                 },
                 context: this
-            });
+              });
         }
         this._super();
+    },
+
+    open: function(todoUrl) {
+        this._super();
+        this._todoUrl = todoUrl;
     }
-})
+});

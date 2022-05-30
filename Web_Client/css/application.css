@@ -1,8 +1,6 @@
-.template, #todo_details {
+.template, #ekl_details {
     display: none;
 }
-
-
-.todo{
-    cursor: pointer;
-}
+ .todo {
+     cursor: pointer;
+ }

@@ -1,15 +1,14 @@
-$.widget("todo.todoDetails",{
-    load: function(todoUrl){
+$.widget("todo.todoDetails", {
+    load: function(eklistUrl) {
         $.ajax({
-            url: todoUrl,
+            url: eklistUrl,
             dataType: "json",
-            success: function(todo){
-                this.element.find(".author").text(todo.author);
-                this.element.find(".due_date").text(todo.due_date);
-                this.element.find(".title").text(todo.title);
-                this.element.find(".notes").text(todo.notes);
+            success: function(ekliste) {
+
+                this.element.find(".produkt").text(ekliste.name);
+                this.element.find(".menge").text(ekliste.menge);
             },
             context: this
-          });
+    });
     }
-})
+});

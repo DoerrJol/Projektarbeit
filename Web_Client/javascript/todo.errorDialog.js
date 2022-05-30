@@ -4,22 +4,23 @@ $.widget("todo.errorDialog", $.ui.dialog, {
         modal: true,
         buttons: [
             {
-                text: "Schließen"
+                text:"Schliessen"
             }
-        ]
+        ],
+
     },
 
-    open: function(message) {
-        this.element.find(".message").text(message);
-        this._super();
-    },
-
-    _create: function(){
+    _create: function() {
         var that = this;
         var close = this.options.buttons[0];
         close.click = function(){
             that.close();
         };
         this._super();
+    },
+
+    open: function(message) {
+        this.element.find(".message").text(message);
+        this._super();
     }
-})
+});

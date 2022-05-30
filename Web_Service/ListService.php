@@ -1,8 +1,11 @@
 <?php
-require "Todo.php";
-require "createTodoResult.php";
 
-class TodoService
+use ListService as GlobalListService;
+
+require "Einkaufsliste.php";
+require "createListResult.php";
+
+class ListService
 {
   const INVALID_INPUT = "INVALID_INPUT";
   const OK = "OK";
@@ -10,45 +13,43 @@ class TodoService
   const DATABASE_ERROR = "DATABASE_ERROR";
   const VERSION_OUTDATED = "VERSION_OUTDATED";
 
-  public function readTodo($id)
+  public function readList($id)
   {
     $connection = new PDO("mysql:host=localhost;dbname=einkaufsliste;charset=UTF8", "root", "");
-    $selectstatement =  "SELECT liste_id, angelegt_am <= CURDATE() as created, name " .
-      "FROM liste " .
-      "WHERE liste_id = $id";
+    $selectstatement =  "SELECT DISTINCT titel, bezeichnung, menge FROM allelisten, einkaufszettel, produkte WHERE produkte.artikelid = einkaufszettel.artikelid
+    AND einkaufszettel.listenid = $id";
     $result_set = $connection->query($selectstatement);
     if ($result_set->rowCount() === 0) {
       $connection = NULL;
-      return TodoService::NOT_FOUND;
+      return ListService::NOT_FOUND;
     }
-    $todo = $result_set->fetchObject("Todo");
+    $eklist = $result_set->fetchObject("Einkaufsliste");
     $connection = null;
-    return $todo;
+    return $eklist;
   }
 
-  public function readTodos()
+  public function readLists()
   {
     try {
       $connection = new PDO("mysql:host=localhost;dbname=einkaufsliste;charset=UTF8", "root", "");
-      $selectstatement =      "SELECT liste_id, angelegt_am <= CURDATE() as created, name " .
-        "FROM liste " .
-        "ORDER BY name";
+      $selectstatement =      "SELECT listenid, titel, status, listenversion FROM allelisten order by status";
+
       $result_set = $connection->query($selectstatement);
-      $todos = $result_set->fetchAll(PDO::FETCH_CLASS, "Todo");
+      $eklists = $result_set->fetchAll(PDO::FETCH_CLASS, "Einkaufsliste");
       $connection = null;
-      return $todos;
+      return $eklists;
     } catch (PDOException $ex) {
       $connection = NULL;
       error_log("Datenbankfehler: " . $ex->getMessage());
-      return TodoService::DATABASE_ERROR;
+      return ListService::DATABASE_ERROR;
     }
   }
 
   public function createTodo($todo)
   {
     if ($todo->title === "") {
-      $result = new CreateTodoResult();
-      $result->status_code = TodoService::INVALID_INPUT;
+      $result = new CreateListResult();
+      $result->status_code = ListService::INVALID_INPUT;
       $result->validationMessages["title"] = "Der Titel ist ungültig. Bitte geben Sie einen Titel an.";
       return $result;
     }
@@ -63,9 +64,9 @@ class TodoService
     $connection->query($insertstatement);
     $id = $connection->lastInsertId();
     $connection = null;
-    $result = new CreateTodoResult();
+    $result = new CreateListResult();
     $result->id = $id;
-    $result->status_code = TodoService::OK;
+    $result->status_code = ListService::OK;
     return $result;
   }
 
@@ -96,11 +97,11 @@ class TodoService
       $connection= null;
 
       if($count === 1){
-        return TodoService::VERSION_OUTDATED;  
+        return ListService::VERSION_OUTDATED;  
 
       }
       else{
-        return TodoService::NOT_FOUND;
+        return ListService::NOT_FOUND;
 
       }
     }

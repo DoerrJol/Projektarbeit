@@ -7,7 +7,7 @@ $(function() {
         $("#todo_list").show();
 
         if(response.status == 404){
-            $("#todo_list").todoList("reload"); 
+            $("#todo_list").EKList("reload"); 
         }
         
     });
