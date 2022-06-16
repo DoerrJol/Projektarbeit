@@ -23,9 +23,9 @@ var app = new Vue({
             },
         ],
         todos: [],
-        selectedTodo: null,
+        selectedList: null,
         confirmDeleteDialog: false,
-        selectedTodoValid: true,
+        selectedListValid: true,
         titleValidationRules:[
             title => title != "" || "Titel eingeben."
         ],
@@ -47,13 +47,13 @@ var app = new Vue({
                 });
         },
 
-        onTodoSelected(selectedTodo) {
+        onTodoSelected(selectedList) {
             axios
-                .get(selectedTodo.url)
+                .get(selectedList.url)
                 .then(response => {
-                    this.selectedTodo = response.data
-                    this.selectedTodo.url = selectedTodo.url;
-                    this.selectedTodo.version = response.headers["etag"];
+                    this.selectedList = response.data
+                    this.selectedList.url = selectedList.url;
+                    this.selectedList.version = response.headers["etag"];
                 })
                 .catch(error => {
                     this.errorMessage = error.response.statusText;
@@ -61,12 +61,12 @@ var app = new Vue({
                 });
         },
 
-        onDeleteTodoClicked() {
+        onDeleteListClicked() {
             this.confirmDeleteDialog = false;
             axios
-                .delete(this.selectedTodo.url)
+                .delete(this.selectedList.url)
                 .then(response => {
-                    this.selectedTodo = null;
+                    this.selectedList = null;
                     this.loadTodos();
                 })
                 .catch(error => {
@@ -78,13 +78,13 @@ var app = new Vue({
         onUpdateTodoClicked() {
             axios
                 .put(
-                    this.selectedTodo.url,
-                    this.selectedTodo,
+                    this.selectedList.url,
+                    this.selectedList,
                     {
-                        headers: {"If-Match": this.selectedTodo.version}
+                        headers: {"If-Match": this.selectedList.version}
                     })
                 .then(response => {
-                    this.selectedTodo = null;
+                    this.selectedList = null;
                     this.loadTodos();
                 })
                 .catch(error => {

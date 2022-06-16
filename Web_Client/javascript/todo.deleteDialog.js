@@ -24,10 +24,10 @@ $.widget("todo.deleteDialog", $.ui.dialog, {
         ok.click = function(){
             that.close();
             $.ajax({
-                url: that._todoUrl,
+                url: that._ekListeUrl,
                 type: "DELETE",
                 success: function() {
-                    that._trigger("onTodoDeleted");
+                    that._trigger("onListDeleted");
                 },
                 context: this
               });
@@ -35,8 +35,8 @@ $.widget("todo.deleteDialog", $.ui.dialog, {
         this._super();
     },
 
-    open: function(todoUrl) {
+    open: function(ekListeUrl) {
         this._super();
-        this._todoUrl = todoUrl;
+        this._ekListeUrl = ekListeUrl;
     }
 });

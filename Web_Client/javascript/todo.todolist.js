@@ -8,7 +8,7 @@ $.widget("todo.todoList", {
     });
   },
 
-  _appendTodos: function(todos) {
+  _appendTodos: function(listen) {
     var that = this;
     for (var i = 0; i < todos.length; i++){
       var todo = todos[i];
@@ -17,7 +17,7 @@ $.widget("todo.todoList", {
       todoElement.find(".ekstatus").text(todo.status);
       todoElement.find(".title").text(todo.titel);
       todoElement.click(todo.url, function(event){
-        that._trigger("onTodoClicked", null, event.data);
+        that._trigger("onEKLClicked", null, event.data);
       });
       todoElement.find(".delete_todo").click(todo.url, function(event){
         that._trigger("onDeleteTodoClicked", null, event.data);

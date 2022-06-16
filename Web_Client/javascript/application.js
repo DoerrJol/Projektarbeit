@@ -29,18 +29,18 @@ $(function() {
             $("#ekl_details").todoDetails("load", eklisteUrl);
         },
 
-        onDeleteTodoClicked: function(event, todoUrl) {
-            $("#delete_dialog").deleteDialog("open", todoUrl);
+        onDeleteTodoClicked: function(event, eklisteUrl) {
+            $("#delete_dialog").deleteDialog("open", eklisteUrl);
         
         },
-        onEditTodoClicked: function(event, todo) {
+        onEditTodoClicked: function(event, eklisteUrl) {
             $("#edit_dialog").editDialog("open", todo);
         
         }
     });
     $("#ekl_details").todoDetails();
     $("#delete_dialog").deleteDialog({
-        onTodoDeleted: function() {
+        onListDeleted: function() {
             $("#ek_liste").EKList("reload");
         }
     });
