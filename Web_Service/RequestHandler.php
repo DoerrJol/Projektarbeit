@@ -23,9 +23,9 @@ $app->get(
       return $response;
     }
 
-    foreach($eklists as $list){
-      $list->url = "/Projektarbeit/Web_Service/listen/$list->id";
-      unset($list->id);
+    foreach($eklists as $eklist){
+      $eklist->url = "/Projektarbeit/Web_Service/listen/$eklist->listenid";
+      unset($eklist->listenid);
     }
 
     $response->getBody()->write(json_encode($eklists));
@@ -33,19 +33,17 @@ $app->get(
   });
 
 $app->get(
-  "/listen/{id}",
-  function ($request, $response, $id){
+  "/listen/{listenid}",
+  function ($request, $response, $listenid){
     $listService = new ListService();
-    $eklist = $listService->readList($id);
+    $eklist = $listService->readList($listenid);
 
     if($eklist=== ListService::NOT_FOUND){
       $response = $response->withStatus(404);
       return $response;
     }
-    
-    unset($eklist->id);
+
 //    $response = $response->withHEader("Etag", $eklist->version);
-    unset($eklist->version);
     $response->getBody()->write(json_encode($eklist));
     return $response;
   }

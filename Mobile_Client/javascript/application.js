@@ -23,9 +23,9 @@ var app = new Vue({
             },
         ],
         todos: [],
-        selectedTodo: null,
+        selectedEKL: null,
         confirmDeleteDialog: false,
-        selectedTodoValid: true,
+        selectedEKLValid: true,
         titleValidationRules:[
             title => title != "" || "Titel eingeben."
         ],
@@ -47,13 +47,13 @@ var app = new Vue({
                 });
         },
 
-        onTodoSelected(selectedTodo) {
+        onEKLSelected(selectedEKL) {
             axios
-                .get(selectedTodo.url)
+                .get(selectedEKL.url)
                 .then(response => {
-                    this.selectedTodo = response.data
-                    this.selectedTodo.url = selectedTodo.url;
-                    this.selectedTodo.version = response.headers["etag"];
+                    this.selectedEKL = response.data
+                    this.selectedEKL.url = selectedEKL.url;
+                    this.selectedEKL.version = response.headers["etag"];
                 })
                 .catch(error => {
                     this.errorMessage = error.response.statusText;
@@ -64,9 +64,9 @@ var app = new Vue({
         onDeleteTodoClicked() {
             this.confirmDeleteDialog = false;
             axios
-                .delete(this.selectedTodo.url)
+                .delete(this.selectedEKL.url)
                 .then(response => {
-                    this.selectedTodo = null;
+                    this.selectedEKL = null;
                     this.loadTodos();
                 })
                 .catch(error => {
@@ -78,13 +78,13 @@ var app = new Vue({
         onUpdateTodoClicked() {
             axios
                 .put(
-                    this.selectedTodo.url,
-                    this.selectedTodo,
+                    this.selectedEKL.url,
+                    this.selectedEKL,
                     {
-                        headers: {"If-Match": this.selectedTodo.version}
+                        headers: {"If-Match": this.selectedEKL.version}
                     })
                 .then(response => {
-                    this.selectedTodo = null;
+                    this.selectedEKL = null;
                     this.loadTodos();
                 })
                 .catch(error => {

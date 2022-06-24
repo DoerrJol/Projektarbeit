@@ -6,7 +6,7 @@ $(function() {
 
         $("#error_dialog").errorDialog("open", response.statusText);
         $("#ek_liste").show();
-        $("#ekl_details").hide();
+        $("#ek_details").hide();
         if (response.status == 404){
         $("#ek_liste").EKList("reload");
         }
@@ -25,8 +25,8 @@ $(function() {
     $("#ek_liste").EKList({
         onEKLClicked: function(event, eklisteUrl) {
             $("#ek_liste").hide();
-            $("#ekl_details").show();
-            $("#ekl_details").todoDetails("load", eklisteUrl);
+            $("#ek_details").show();
+            $("#ek_details").listenDetails("load", eklisteUrl);
         },
 
         onDeleteTodoClicked: function(event, todoUrl) {
@@ -38,7 +38,7 @@ $(function() {
         
         }
     });
-    $("#ekl_details").todoDetails();
+    $("#ek_details").listenDetails();
     $("#delete_dialog").deleteDialog({
         onTodoDeleted: function() {
             $("#ek_liste").EKList("reload");
@@ -52,9 +52,9 @@ $(function() {
     });
 
     $("#menu_bar").menuBar({
-        onShowTodosClicked: function() {
+        onShowListenClicked: function() {
             $("#ek_liste").show();
-            $("#ekl_details").hide();
+            $("#ek_details").hide();
             $("#ek_liste").EKList("reload");
         }
     });

@@ -13,17 +13,17 @@ class ListService
   const DATABASE_ERROR = "DATABASE_ERROR";
   const VERSION_OUTDATED = "VERSION_OUTDATED";
 
-  public function readList($id)
+  public function readList($listenid)
   {
     $connection = new PDO("mysql:host=localhost;dbname=einkaufsliste;charset=UTF8", "root", "");
-    $selectstatement =  "SELECT DISTINCT titel, bezeichnung, menge FROM allelisten, einkaufszettel, produkte WHERE produkte.artikelid = einkaufszettel.artikelid
-    AND einkaufszettel.listenid = $id";
+    $selectstatement =  "SELECT bezeichnung, menge FROM  einkaufszettel, produkte WHERE produkte.artikelid = einkaufszettel.artikelid
+    AND einkaufszettel.listenid = $listenid";
     $result_set = $connection->query($selectstatement);
     if ($result_set->rowCount() === 0) {
       $connection = NULL;
       return ListService::NOT_FOUND;
     }
-    $eklist = $result_set->fetchObject("Einkaufsliste");
+    $eklist = $result_set->fetchAll(PDO:: FETCH_CLASS,"Einkaufsliste");
     $connection = null;
     return $eklist;
   }
@@ -32,7 +32,7 @@ class ListService
   {
     try {
       $connection = new PDO("mysql:host=localhost;dbname=einkaufsliste;charset=UTF8", "root", "");
-      $selectstatement =      "SELECT listenid, titel, status, listenversion FROM allelisten order by status";
+      $selectstatement =      "SELECT listenid, titel, status, listenversion FROM allelisten order by listenid";
 
       $result_set = $connection->query($selectstatement);
       $eklists = $result_set->fetchAll(PDO::FETCH_CLASS, "Einkaufsliste");
@@ -62,17 +62,17 @@ class ListService
                           "notes = '$todo->notes'," .
                           "version = 1";
     $connection->query($insertstatement);
-    $id = $connection->lastInsertId();
+    $listenid = $connection->lastInsertId();
     $connection = null;
     $result = new CreateListResult();
-    $result->id = $id;
+    $result->id = $listenid;
     $result->status_code = ListService::OK;
     return $result;
   }
 
-  public function deleteTodo($id){
+  public function deleteTodo($listenid){
     $connection = new PDO("mysql:host=localhost;dbname=einkaufsliste;charset=UTF8", "root", "");
-    $deleteStatement = "DELETE FROM todo WHERE id = $id";
+    $deleteStatement = "DELETE FROM todo WHERE id = $listenid";
     $connection->query($deleteStatement);
     $connection= null;
   }

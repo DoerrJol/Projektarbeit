@@ -1,8 +1,8 @@
 <?php
     class Einkaufsliste{
-        public $id;
-        public $title;
-        public $name;
+        public $listenid;
+        public $titel;
+        public $bezeichnung;
         public $menge;
         public $status;
         public $version;

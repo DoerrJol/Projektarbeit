@@ -8,7 +8,7 @@ require "ListeService.php";
 $app = \Slim\Factory\AppFactory::create();
 $app->addRoutingMiddleware();
 $app->getRouteCollector()->setDefaultInvocationStrategy(new \Slim\Handlers\Strategies\RequestResponseArgs());
-$app->setBasePath("/DoerrJol/8_Projektarbeit");
+$app->setBasePath("/localhost/Projektarbeit");
 $app->addErrorMiddleware(true, true, true);
 
 $app->get(

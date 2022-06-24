@@ -1,7 +1,7 @@
 <?php
     class CreateListResult{
         public $status_code;
-        public $id;
+        public $listenid;
         public $validationMessages = array();
     }
 ?>
