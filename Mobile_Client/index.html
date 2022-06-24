@@ -17,7 +17,7 @@
                 <v-toolbar>
                     <v-toolbar-title>Todo-Liste</v-toolbar-title>
                     <v-spacer></v-spacer>
-                    <v-btn v-if="selectedEKL != null" @click="selectedEKL=null">Zurück</v-btn>
+                    <v-btn v-if="selectedList != null" @click="selectedList=null">Zurück</v-btn>
                 </v-toolbar>
                 <v-dialog v-model="errorOccured" persistent max-width="290">
                     <v-card>
@@ -31,26 +31,26 @@
                     </v-card>
                 </v-dialog>
 
-                <v-data-table v-if="selectedEKL==null" @click:row="onTodoSelected" :headers="EKListHeaders"
+                <v-data-table v-if="selectedList==null" @click:row="onTodoSelected" :headers="EKListHeaders"
                     :items="todos" hide-default-footer no-data-text="Keine Todos vorhanden"></v-data-table>
 
-                <v-form @submit.prevent="onUpdateTodoClicked" v-if="selectedEKL != null" v-model="selectedEKLValid">
+                <v-form @submit.prevent="onUpdateTodoClicked" v-if="selectedList != null" v-model="selectedListValid">
                     <v-container>
                         <v-row>
                             <v-col>
-                                <v-text-field v-model="selectedEKL.title" v-model="selectedEKL.titel" label="Title" :rules="titleValidationRules"></v-text-field>
-                                <v-text-field type="date" :rules="dueDateValidationRules" v-model="selectedEKL.due_date" label="Fällig"></v-text-field>
-                                <v-text-field readonly v-model="selectedEKL.author" label="Ersteller"></v-text-field>
+                                <v-text-field v-model="selectedList.title" v-model="selectedList.titel" label="Title" :rules="titleValidationRules"></v-text-field>
+                                <v-text-field type="date" :rules="dueDateValidationRules" v-model="selectedList.due_date" label="Fällig"></v-text-field>
+                                <v-text-field readonly v-model="selectedList.author" label="Ersteller"></v-text-field>
                             </v-col>
                         </v-row>
                         <v-row>
                             <v-col>
-                                <v-textarea label="Notizen" v-model="selectedEKL.notes"></v-textarea>
+                                <v-textarea label="Notizen" v-model="selectedList.notes"></v-textarea>
                             </v-col>
                         </v-row>
                         <v-row>
                             <v-col class="text-right">
-                                <v-btn type="submit" :disabled="!selectedEKLValid">Speichern</v-btn>
+                                <v-btn type="submit" :disabled="!selectedListValid">Speichern</v-btn>
                                 <v-btn @click.stop="confirmDeleteDialog = true">Löschen</v-btn>
                                 <v-dialog v-model="confirmDeleteDialog" max-width="290">
                                     <v-card>
@@ -59,7 +59,7 @@
                                         <v-card-actions>
                                             <v-spacer></v-spacer>
                                             <v-btn @click="confirmDeleteDialog = false">Abbrechen</v-btn>
-                                            <v-btn @click="onDeleteTodoClicked">Bestätigen</v-btn>
+                                            <v-btn @click="onDeleteListClicked">Bestätigen</v-btn>
                                         </v-card-actions>
                                     </v-card>
                                 </v-dialog>

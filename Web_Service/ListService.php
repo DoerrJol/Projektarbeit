@@ -70,7 +70,7 @@ class ListService
     return $result;
   }
 
-  public function deleteTodo($listenid){
+  public function deleteList($listenid){
     $connection = new PDO("mysql:host=localhost;dbname=einkaufsliste;charset=UTF8", "root", "");
     $deleteStatement = "DELETE FROM todo WHERE id = $listenid";
     $connection->query($deleteStatement);

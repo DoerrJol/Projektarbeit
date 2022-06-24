@@ -61,7 +61,7 @@ var app = new Vue({
                 });
         },
 
-        onDeleteTodoClicked() {
+        onDeleteListClicked() {
             this.confirmDeleteDialog = false;
             axios
                 .delete(this.selectedEKL.url)

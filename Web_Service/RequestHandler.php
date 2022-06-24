@@ -66,16 +66,16 @@ $app->post(
     }
 
     $response = $response->withStatus(201);
-    $response = $response->withHeader("Location", "Projektarbeit/Web_Service/todos/$result->id");
+    $response = $response->withHeader("Location", "Projektarbeit/Web_Service/listen/$result->id");
     return $response;
   }
 );
 
 $app->delete(
-  "/todos/{id}",
+  "/listen/{id}",
   function ($request, $response, $id){
-    $todoService=new ListService();
-    $todoService->deleteTodo($id)  ;
+    $listService=new ListService();
+    $listService->deleteList($id)  ;
     return $response;
   }
 );
@@ -98,8 +98,8 @@ $app->put(
       return $response->withJson($validation_messages);
     }
 
-    $todoService=new ListService();
-    $result = $todoService->updateTodo($todo)  ;
+    $listService=new ListService();
+    $result = $listService->updateTodo($todo)  ;
     if ($result === ListService::VERSION_OUTDATED){
       $response = $response->withStatus(412);
       return $response;
