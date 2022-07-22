@@ -39,7 +39,7 @@
                         <v-row>
                             <v-col>
                                 <v-text-field v-model="selectedList.title" v-model="selectedList.titel" label="Title" :rules="titleValidationRules"></v-text-field>
-                                <v-text-field type="date" :rules="dueDateValidationRules" v-model="selectedList.due_date" label="Fällig"></v-text-field>
+                                <v-text-field type="date" :rules="dueDateValidationRules" v-model="selectedList.statsus" label="Status"></v-text-field>
                                 <v-text-field readonly v-model="selectedList.author" label="Ersteller"></v-text-field>
                             </v-col>
                         </v-row>

@@ -12,8 +12,8 @@ var app = new Vue({
                 sortable: false,
             },
             {
-                text: 'Fällig',
-                value: 'due_date',
+                text: 'Status',
+                value: 'status',
                 sortable: false
             },
             {
@@ -61,7 +61,7 @@ var app = new Vue({
                 });
         },
 
-        onDeleteListClicked() {
+        onDeleteEKLClicked() {
             this.confirmDeleteDialog = false;
             axios
                 .delete(this.selectedEKL.url)

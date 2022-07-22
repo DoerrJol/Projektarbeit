@@ -45,9 +45,9 @@ class ListService
     }
   }
 
-  public function createTodo($todo)
+  public function createList($ekliste)
   {
-    if ($todo->title === "") {
+    if ($ekliste->title === "") {
       $result = new CreateListResult();
       $result->status_code = ListService::INVALID_INPUT;
       $result->validationMessages["title"] = "Der Titel ist ungültig. Bitte geben Sie einen Titel an.";
@@ -57,9 +57,9 @@ class ListService
     $connection = new PDO("mysql:host=localhost;dbname=einkaufsliste;charset=UTF8", "root", "");
     $insertstatement =    "INSERT INTO todo SET " .
                           "created_date = CURDATE(), " .
-                          "due_date = '$todo->due_date', " .
-                          "title = '$todo->title', " .
-                          "notes = '$todo->notes'," .
+                          "due_date = '$ekliste->due_date', " .
+                          "title = '$ekliste->title', " .
+                          "notes = '$ekliste->notes'," .
                           "version = 1";
     $connection->query($insertstatement);
     $listenid = $connection->lastInsertId();

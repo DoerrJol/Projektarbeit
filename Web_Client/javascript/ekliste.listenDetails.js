@@ -18,4 +18,14 @@ $.widget("ekliste.listenDetails", {
     });
     },
 
+    reload: function(eklistUrl) {
+        this.element.find(".details:not(.details)").remove();
+        $.ajax({
+          url: eklistUrl,
+          dataType: "json",
+          success: this._appendEKLists,
+          context: this
+        });
+      }
+
 });

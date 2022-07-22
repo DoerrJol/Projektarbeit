@@ -1,4 +1,4 @@
-$.widget("todo.editDialog", $.ui.dialog, {
+$.widget("ekliste.editDialog", $.ui.dialog, {
     options: {
         autoOpen: false,
         modal: true,
@@ -23,17 +23,17 @@ $.widget("todo.editDialog", $.ui.dialog, {
 
         var ok = this.options.buttons[1];
         ok.click = function(){
-            var todo ={
-                status: that.element.find("#status_field").val(),
+            var eklist ={
+                //status: that.element.find("#status_field").val(),
                 title: that.element.find("#title_field").val(),
                 notes: that.element.find("#notes_field").val(),
             };
             $.ajax({
                 url: that._todo.url,
                 type: "PUT",
-                data: todo,
+                data: eklist,
                 headers: {
-                    "If-Match": that._todo.version
+                    "If-Match": that._ekliste.version
                 },
                 success: function(){
                     that.close();
@@ -49,16 +49,16 @@ $.widget("todo.editDialog", $.ui.dialog, {
                 }}
               });
         }
-        this.element.find("#due_date_field").datepicker({dateFormat: "yy-mm-dd"});
+        //this.element.find("#status_field").datepicker({dateFormat: "yy-mm-dd"});
         this._super();
     },
 
-    open: function(todo) {
+    open: function(ekliste) {
         this._super();
-        this._todo = todo;
-        this.element.find("#due_date_field").val(todo.due_date); 
-        this.element.find("#title_field").val(todo.title); 
-        this.element.find("#notes_field").val(todo.notes); 
+        this._ekliste = ekliste;
+        this.element.find("#status_field").val(ekliste.produkt); 
+        this.element.find("#title_field").val(ekliste.menge); 
+        this.element.find("#notes_field").val(ekliste.notes); 
         this.element.find(".validation_message").empty();
         this.element.find("#title_field").removeClass("ui-state-error");
     }

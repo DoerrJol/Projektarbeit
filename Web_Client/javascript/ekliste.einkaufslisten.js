@@ -20,11 +20,15 @@ $.widget("ekliste.EKList", {
         that._trigger("onEKLClicked", null, event.data);
       });
       eklElement.find(".delete_ekl").click(ekliste.url, function(event){
-        that._trigger("onDeleteListClicked", null, event.data);
+        that._trigger("onDeleteEKLClicked", null, event.data);
         return false;
       });
       eklElement.find(".edit_ekl").click(ekliste, function(event){
         that._trigger("onEditEKLClicked", null, event.data);
+        return false;
+      });
+      eklElement.find(".add_ekliste").click(ekliste, function(event){
+        that._trigger("onAddEKLClicked", null, event.data);
         return false;
       });
       this.element.append(eklElement);

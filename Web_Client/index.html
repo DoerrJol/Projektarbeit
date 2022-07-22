@@ -10,8 +10,8 @@
     <script src="./javascript/jquery.ui.datepicker-de.js"></script>
     <script src="./javascript/jquery.blockUI.js"></script>
     <script src="./javascript/todo.errorDialog.js"></script>
-    <script src="./javascript/todo.deleteDialog.js"></script>
-    <script src="./javascript/todo.editDialog.js"></script>
+    <script src="./javascript/ekliste.deleteDialog.js"></script>
+    <script src="./javascript/ekliste.editdialog.js"></script>
     <script src="./javascript/ekliste.listenDetails.js"></script>
     <script src="./javascript/ekliste.einkaufslisten.js"></script>
     <script src="./javascript/ekliste.menubar.js"></script>
@@ -19,8 +19,8 @@
   </head>
   <body>  
     <div id="menu_bar">
-      <a class="show_eklisten" href="#">Listenübersicht</a>
-      <a class="create_ekliste" href="#">Neue Liste</a>
+      <a class="show_eklisten" href="#">Alle Listen</a>
+      <a class="add_ekliste" href="#">Neue Liste</a>
     </div>
     <div id="ek_liste">
       <div class="template ekliste">
@@ -46,10 +46,10 @@
       <span class="menge"></span>
     </div>
   </div>
-  <div id="delete_dialog" title="Liste löschen">
-    <div>Möchten Sie die Liste wirklich löschen?</div>
+  <div id="delete_dialog" title="Einkaufsliste löschen">
+    <div>Möchten Sie diese Einkaufsliste wirklich löschen?</div>
   </div>
-  <div id="edit_dialog" title="Todo bearbeiten">
+  <div id="edit_dialog" title="Einkaufsliste bearbeiten">
     <form>
       <table>
         <tr>
@@ -57,15 +57,36 @@
         </tr>
         <tr>
           <td>
-            <label for="due_date_field">Fällig</label>,
+            <!--label for="status_field">Status</label-->
             <label for="title_field">Titel</label>:
           </td>
-          <td><input id="due_date_field" type="text"/></td>
+          <!--td><input id="status_field" type="boolean"/></td-->
           <td><input id="title_field" type="text"/></td>
         </tr>
         <tr>
           <td><label for="notes_field">Inhalt:</label></td>
           <td colspan="2"><textarea id="notes_field"></textarea></td>
+        </tr>
+      </table>
+    </form>
+  </div>
+  <div id="add_dialog" title="Neue Einkaufsliste anlegen">
+    <form>
+      <table>
+        <tr>
+          <td colspan="2"><span class="validation_message ui-state-error-text"></span></td>
+        </tr>
+        <tr>
+          <td>
+            <!--label for="status_field">Status</label-->
+            <label for="add_title_field">Titel</label>:
+          </td>
+          <!--td><input id="status_field" type="boolean"/></td-->
+          <td><input id="add_title_field" type="text"/></td>
+        </tr>
+        <tr>
+          <td><label for="add_notes_field">Inhalt:</label></td>
+          <td colspan="2"><textarea id="add_notes_field"></textarea></td>
         </tr>
       </table>
     </form>

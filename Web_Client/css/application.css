@@ -1,7 +1,7 @@
-.template, #ek_details {
+.template, #ek_details, #add_dialog {
     display: none;
 }
- .todo {
+ .ekliste {
      cursor: pointer;
  }
  template ekliste{

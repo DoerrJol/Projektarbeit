@@ -57,7 +57,7 @@ $app->post(
     $einkaufsliste->title = $body["titel"];
 
     $listService = new ListService();
-    $result = $listService->createTodo($einkaufsliste);
+    $result = $listService->createList($einkaufsliste);
 
     if($result->status_code === ListService::INVALID_INPUT){
       $response = $response->withStatus(400);
@@ -87,7 +87,7 @@ $app->put(
     $todo = new Einkaufsliste();
     $todo->id = $id;
     $todo->title = $body["title"];
-    $todo->due_date = $body["due_date"];
+    $todo->status = $body["status"];
     $todo->notes = $body["notes"];
     $todo->version = $request->getHeaderLine("If-Match");
 

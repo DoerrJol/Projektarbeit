@@ -29,12 +29,16 @@ $(function() {
             $("#ek_details").listenDetails("load", eklisteUrl);
         },
 
-        onDeleteTodoClicked: function(event, eklisteUrl) {
+        onDeleteEKLClicked: function(event, eklisteUrl) {
             $("#delete_dialog").deleteDialog("open", eklisteUrl);
         
         },
-        onEditTodoClicked: function(event, eklisteUrl) {
-            $("#edit_dialog").editDialog("open", todo);
+        onEditEKLClicked: function(event, eklisteUrl) {
+            $("#edit_dialog").editDialog("open", eklisteUrl);
+        
+        },
+        onAddEKLClicked: function(event, eklisteUrl) {
+            $("#add_dialog").addDialog("open");
         
         }
     });
@@ -46,7 +50,7 @@ $(function() {
     });
 
     $("#edit_dialog").editDialog({
-        onTodoEdited: function() {
+        onEKLEdited: function() {
             $("#ek_liste").EKList("reload");
         }
     });
