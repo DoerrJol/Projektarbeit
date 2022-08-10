@@ -36,10 +36,6 @@ $(function() {
         onEditEKLClicked: function(event, eklisteUrl) {
             $("#edit_dialog").editDialog("open", eklisteUrl);
         
-        },
-        onAddEKLClicked: function(event, eklisteUrl) {
-            $("#add_dialog").addDialog("open");
-        
         }
     });
     $("#ek_details").listenDetails();
@@ -60,6 +56,11 @@ $(function() {
             $("#ek_liste").show();
             $("#ek_details").hide();
             $("#ek_liste").EKList("reload");
+        },
+        onAddEKLClicked: function() {
+            //alert("TEST")
+            //$("#add_dialog").addDialog("open");
+            $("#edit_dialog").addDialog("open");
         }
     });
 

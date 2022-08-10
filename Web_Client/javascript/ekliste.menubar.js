@@ -6,5 +6,10 @@ $.widget("ekliste.menuBar", {
                 that._trigger("onShowListenClicked");
                 return false;
             });
+            var that = this;
+            this.element.find(".add_ekliste").click(function() {
+                that._trigger("onAddEKLClicked");
+                return false;
+            });
         }
     });

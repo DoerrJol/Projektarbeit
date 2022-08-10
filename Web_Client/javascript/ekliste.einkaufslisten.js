@@ -27,7 +27,7 @@ $.widget("ekliste.EKList", {
         that._trigger("onEditEKLClicked", null, event.data);
         return false;
       });
-      eklElement.find(".add_ekliste").click(ekliste, function(event){
+      eklElement.find(".add_ekliste").click(function(event){
         that._trigger("onAddEKLClicked", null, event.data);
         return false;
       });
